@@ -1,7 +1,18 @@
-let Hand = 0
+radio.onReceivedNumber(function (receivedNumber) {
+    if (receivedNumber == 1) {
+        if (Juego == 2) {
+            basic.showIcon(IconNames.Happy)
+        }
+    } else if (Juego == 1) {
+        basic.showIcon(IconNames.Asleep)
+    } else if (false) {
+        basic.showIcon(IconNames.Sad)
+    }
+})
 input.onGesture(Gesture.Shake, function () {
-    Hand = randint(1, 3)
-    if (Hand == 1) {
+    Juego = randint(1, 3)
+    radio.sendNumber(Juego)
+    if (Juego == 1) {
         basic.showLeds(`
             # # # # #
             # . . . #
@@ -9,16 +20,14 @@ input.onGesture(Gesture.Shake, function () {
             # . . . #
             # # # # #
             `)
-        music.playSoundEffect(music.createSoundEffect(WaveShape.Sine, 5000, 0, 255, 0, 500, SoundExpressionEffect.None, InterpolationCurve.Linear), SoundExpressionPlayMode.UntilDone)
-    } else if (Hand == 2) {
+    } else if (Juego == 2) {
         basic.showLeds(`
             . . . . .
             . # # # .
-            . # # # .
+            . # . # .
             . # # # .
             . . . . .
             `)
-        music.playSoundEffect(music.createSoundEffect(WaveShape.Sine, 5000, 0, 255, 0, 500, SoundExpressionEffect.None, InterpolationCurve.Linear), SoundExpressionPlayMode.UntilDone)
     } else {
         basic.showLeds(`
             # # . . #
@@ -27,9 +36,8 @@ input.onGesture(Gesture.Shake, function () {
             # # . # .
             # # . . #
             `)
-        music.playSoundEffect(music.createSoundEffect(WaveShape.Sine, 5000, 0, 255, 0, 500, SoundExpressionEffect.None, InterpolationCurve.Linear), SoundExpressionPlayMode.UntilDone)
     }
+    basic.pause(2000)
 })
-basic.forever(function () {
-	
-})
+let Juego = 0
+radio.setGroup(1)
